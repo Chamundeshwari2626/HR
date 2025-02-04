@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="sty.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">HR Manager</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="employee.html">Employee Management</a></li>
+          <li class="nav-item"><a class="nav-link" href="resum.html">Resume Submission</a></li>
+          <li class="nav-item"><a class="nav-link active" href="reports.html">Reports</a></li>
+          <li class="nav-item"><a class="nav-link" href="settings.html">Settings</a></li>
+          <li class="nav-item"><a class="nav-link" href="logregis.html">Login/Sign Up</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Reports Section -->
+  <section class="container my-5">
+    <h1 class="text-center">Reports & Analytics</h1>
+    <p class="text-center">Track performance metrics and generate detailed reports.</p>
+
+    <!-- Add New Report Button -->
+    <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#addReportModal">Add New Report</button>
+
+    <div class="table-responsive">
+      <table class="table table-bordered" id="reportsTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Report Name</th>
+            <th>Created On</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Existing rows will be loaded dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Add Report Modal -->
+  <div class="modal fade" id="addReportModal" tabindex="-1" aria-labelledby="addReportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addReportModalLabel">Add New Report</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addReportForm">
+            <div class="mb-3">
+              <label for="reportName" class="form-label">Report Name</label>
+              <input type="text" class="form-control" id="reportName" placeholder="Enter report name" required>
+            </div>
+            <div class="mb-3">
+              <label for="reportDate" class="form-label">Created On</label>
+              <input type="date" class="form-control" id="reportDate" required>
+            </div>
+            <div class="mb-3">
+              <label for="reportStatus" class="form-label">Status</label>
+              <select class="form-control" id="reportStatus">
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Report</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3">
+    <p>&copy; 2024 HR Manager Portal. All Rights Reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Preloaded reports
+    const reports = [
+      { id: 1, name: "Employee Performance", createdOn: "12/01/2024", status: "Completed" },
+      { id: 2, name: "Annu  al Review", createdOn: "11/25/2024", status: "Pending" }
+    ];
+
+    // Function to load reports dynamically
+    function loadReports() {
+      const tableBody = document.getElementById("reportsTable").getElementsByTagName('tbody')[0];
+      tableBody.innerHTML = '';  // Clear existing rows
+      reports.forEach(report => {
+        const newRow = tableBody.insertRow();
+        newRow.innerHTML = `
+          <td>${report.id}</td>
+          <td>${report.name}</td>
+          <td>${report.createdOn}</td>
+          <td class="status" data-id="${report.id}">${report.status}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" onclick="updateStatus(${report.id})">Update Status</button>
+          </td>
+        `;
+      });
+    }
+
+    // Add new report
+    document.getElementById("addReportForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const reportName = document.getElementById("reportName").value;
+      const reportDate = document.getElementById("reportDate").value;
+      const reportStatus = document.getElementById("reportStatus").value;
+      const id = reports.length + 1; // Assign new ID
+
+      // Add the new report
+      reports.push({ id, name: reportName, createdOn: reportDate, status: reportStatus });
+
+      // Reload the table
+      loadReports();
+
+      // Close the modal and reset the form
+      const modal = bootstrap.Modal.getInstance(document.getElementById("addReportModal"));
+      modal.hide();
+      document.getElementById("addReportForm").reset();
+    });
+
+    // Update report status
+    function updateStatus(reportId) {
+      const report = reports.find(r => r.id === reportId);
+      if (report) {
+        const newStatus = report.status === "Pending" ? "Completed" : "Pending";
+        report.status = newStatus;
+
+        // Update the status in the table
+        const statusCell = document.querySelector(`.status[data-id="${reportId}"]`);
+        statusCell.textContent = newStatus;
+      }
+    }
+
+    // Initialize page with preloaded reports
+    loadReports();
+  </script>
+</body>
+</html>

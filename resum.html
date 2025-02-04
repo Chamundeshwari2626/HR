@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Hiring Workflow</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">HR Manager</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="employee.html">Employee Management</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="resume.html">Resume Submission</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reports.html">Reports</a></li>
+                    <li class="nav-item"><a class="nav-link" href="settings.html">Settings</a></li>
+                    <li class="nav-item"><a class="nav-link" href="logregis.html">Login/Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <!-- Applicant Submission Section -->
+        <section id="applicant-form" class="mb-5">
+            <h2 class="mb-4">Submit Your Resume</h2>
+            <form id="resume-form">
+                <div class="mb-3">
+                    <label for="applicantName" class="form-label">Applicant Name:</label>
+                    <input type="text" id="applicantName" class="form-control" placeholder="Enter full name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="opportunity-id" class="form-label">Opportunity ID:</label>
+                    <input type="text" id="opportunity-id" name="opportunity-id" class="form-control" placeholder="Enter Opportunity ID" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="applicant-email" class="form-label">Applicant Email:</label>
+                    <input type="email" id="applicant-email" name="applicant-email" class="form-control" placeholder="Enter Email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="resume" class="form-label">Upload Resume:</label>
+                    <input type="file" id="resume" name="resume" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </section>
+
+        <!-- HR Review Section -->
+        <section id="hr-review" class="mb-5">
+            <h2 class="mb-4">HR Review</h2>
+            <button id="shortlist-btn" class="btn btn-success me-2">Shortlist</button>
+            <button id="reject-btn" class="btn btn-danger">Reject</button>
+            <textarea id="rejection-reason" class="form-control mt-3" placeholder="Reason for rejection (if applicable)" style="display:none;"></textarea>
+        </section>
+
+        <!-- Manager Actions Section -->
+        <section id="manager-actions" class="mb-5">
+            <h2 class="mb-4">Manager Actions</h2>
+            <button id="schedule-interview" class="btn btn-secondary me-2">Schedule Interview</button>
+            <button id="assign-interviewer" class="btn btn-secondary">Assign Interviewer</button>
+        </section>
+
+        <!-- Reports Section -->
+        <section id="reports">
+            <h2 class="mb-4">Reports</h2>
+            <button id="download-excel" class="btn btn-primary me-2">
+                <a href="C:\Users\lenovo\OneDrive\Desktop\HR\HR excel" download style="color: white; text-decoration: none;">Download Excel</a>
+            </button>
+            <button id="view-graphs" class="btn btn-secondary">View Graphs</button>
+            <div id="graph-container" class="mt-3">
+                <!-- Graphs will be dynamically added here -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-primary text-white text-center py-3">
+        <p>&copy; 2024 HR Operations Manager</p>
+    </footer>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Link to External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

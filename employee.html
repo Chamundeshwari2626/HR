@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="sty.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">HR Manager</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="employee.html">Employee Management</a></li>
+          <li class="nav-item"><a class="nav-link" href="resum.html">Resume Submission</a></li>
+          <li class="nav-item"><a class="nav-link" href="reports.html">Reports</a></li>
+          <li class="nav-item"><a class="nav-link" href="settings.html">Settings</a></li>
+          <li class="nav-item"><a class="nav-link" href="logregis.html">Login/Sign Up</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Employee Section -->
+  <section class="container my-5">
+    <h1 class="text-center">Employee Management</h1>
+    <p class="text-center">Add, update, and manage your employees with ease.</p>
+    <div class="table-responsive">
+      <table class="table table-bordered" id="employeeTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Existing rows (can be preloaded) -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Add Employee Button -->
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">Add Employee</button>
+  </section>
+
+  <!-- Add Employee Modal -->
+  <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEmployeeModalLabel">Add New Employee</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addEmployeeForm">
+            <div class="mb-3">
+              <label for="employeeName" class="form-label">Name</label>
+              <input type="text" class="form-control" id="employeeName" placeholder="Enter employee name" required>
+            </div>
+            <div class="mb-3">
+              <label for="employeeDept" class="form-label">Department</label>
+              <input type="text" class="form-control" id="employeeDept" placeholder="Enter department" required>
+            </div>
+            <div class="mb-3">
+              <label for="employeeRole" class="form-label">Role</label>
+              <input type="text" class="form-control" id="employeeRole" placeholder="Enter role" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Employee</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <p>&copy; 2024 HR Manager Portal. All Rights Reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Pre-existing employees
+    const existingEmployees = [
+      { id: 1, name: "Jane Doe", dept: "HR", role: "Manager" },
+      { id: 2, name: "John Smith", dept: "IT", role: "Developer" }
+    ];
+
+    // Function to load existing employees into the table
+    function loadEmployees() {
+      const tableBody = document.getElementById("employeeTable").getElementsByTagName('tbody')[0];
+      existingEmployees.forEach(employee => {
+        const newRow = tableBody.insertRow();
+        newRow.innerHTML = `
+          <td>${employee.id}</td>
+          <td>${employee.name}</td>
+          <td>${employee.dept}</td>
+          <td>${employee.role}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" onclick="editEmployee(this)">Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">Delete</button>
+          </td>
+        `;
+      });
+    }
+
+    // Add Employee Dynamically
+    document.getElementById("addEmployeeForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("employeeName").value;
+      const dept = document.getElementById("employeeDept").value;
+      const role = document.getElementById("employeeRole").value;
+      const id = existingEmployees.length + 1; // Set a new unique ID based on current length
+
+      // Add the new employee to the existing list
+      existingEmployees.push({ id, name, dept, role });
+
+      // Reload the table with updated data
+      document.getElementById("employeeTable").getElementsByTagName('tbody')[0].innerHTML = '';
+      loadEmployees();
+
+      // Close the modal and reset the form
+      const modal = bootstrap.Modal.getInstance(document.getElementById("addEmployeeModal"));
+      modal.hide();
+      document.getElementById("addEmployeeForm").reset();
+    });
+
+    // Edit Function (To be implemented as needed)
+    function editEmployee(button) {
+      const row = button.closest("tr");
+      // Implement your edit functionality here
+      alert("Edit functionality is under development!");
+    }
+
+    // Delete Function
+    function deleteEmployee(button) {
+      const row = button.closest("tr");
+      const employeeId = parseInt(row.cells[0].textContent); // Get employee ID
+      // Remove employee from the existing list based on ID
+      const index = existingEmployees.findIndex(emp => emp.id === employeeId);
+      if (index !== -1) {
+        existingEmployees.splice(index, 1);
+      }
+
+      // Reload the table after deletion
+      row.remove();
+    }
+
+    // Initialize the page with pre-loaded employees
+    loadEmployees();
+  </script>
+</body>
+</html>

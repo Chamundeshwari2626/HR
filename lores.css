@@ -1,0 +1,178 @@
+/* Navbar */
+nav.navbar {
+    width: 100%; /* Ensure navbar spans the full width */
+    position: fixed; /* Fix the navbar at the top */
+    top: 0;
+    left: 0;
+    z-index: 1030; /* Keep navbar on top of other elements */
+}
+
+nav.navbar .container-fluid {
+    max-width: 100%; /* Remove any container width constraints */
+    padding: 0; /* Ensure no extra padding */
+}
+
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #e6e4e8);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+    flex-direction: column;
+    padding-top: 80px; /* Space for the fixed navbar */
+}
+
+/* Content Styling */
+.container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 1000px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* Form Box Styling */
+.form-box {
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+}
+
+.form-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-box p {
+    margin-bottom: 25px;
+    color: #666;
+}
+
+input[type="text"], input[type="password"], input[type="email"], button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+}
+
+input:focus {
+    border-color: #6a11cb;
+    outline: none;
+    box-shadow: 0 0 4px rgba(106, 17, 203, 0.5);
+}
+
+button {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+}
+
+.login-box {
+    background-color: #f4f4f9;
+    border-right: 1px solid #eee;
+}
+
+.signup-box {
+    background-color: #f9f9f9;
+}
+
+.form-box:hover {
+    transform: scale(1.01);
+}
+
+.form-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.cta {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cta a {
+    color: #6a11cb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cta a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        height: auto;
+        padding-bottom: 50px; /* Space for footer */
+    }
+
+    .container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .form-box {
+        width: 100%;
+        border-right: none;
+        border-bottom: none;
+    }
+
+    .login-box {
+        border-bottom: 1px solid #eee;
+    }
+
+    .form-box button {
+        padding: 15px; /* Make buttons larger on mobile */
+    }
+
+    .form-title {
+        font-size: 20px; /* Slightly smaller title for small screens */
+    }
+
+    .cta {
+        margin-top: 15px;
+    }
+}
+
+/* Footer Styling */
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
